@@ -21,8 +21,18 @@ function buscarIndexSelecao(id){
     return selecoes.findIndex(selecao => selecao.id === Number(id))
 }
 
-
 // criar rota padrão ou raiz
+// Crud  Criar Ler Update e Delete
+
+app.post('/selecoes',(req, res) => {
+    const novaSelecao = req.body
+    selecoes.push(novaSelecao)
+    res.status(201).json({
+        mensagem: 'Seleção cadastrada com sucesso!', 
+        dados: novaSelecao
+    })
+})
+
 app.get('/',(req, res) => {
     res.send('Curso de Node JS')
 })
@@ -40,13 +50,15 @@ app.get('/selecoes/:id', (req, res) => {
     return res.status(200).json(objeto)        
 })
 
-app.post('/selecoes',(req, res) => {
-    const novaSelecao = req.body
-    selecoes.push(novaSelecao)
-    res.status(201).json({
-        mensagem: 'Seleção cadastrada com sucesso!', 
-        dados: novaSelecao
-    })
+app.put('/selecoes/:id', (req,res) => {
+    const index = buscarIndexSelecao(req.params.id)
+    if (index < 0) {
+        return res.status(404).json({erro:`Seleção com o id ${req.params.id} não encontrada!`})
+    } 
+    
+    selecoes[index].selecao = req.body.selecao
+    selecoes[index].grupo = req.body.grupo
+    res.status(200).json(selecoes)
 })
 
 app.delete('/selecoes/:id', (req,res) => {
