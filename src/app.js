@@ -1,15 +1,11 @@
 import express from 'express'
-import SelecaoController from './app/controllers/SelecaoController.js'
+import router from './routes.js'
 
 const app = express()
 
 // indicar para o express ler o body com json
 app.use(express.json())
 
-app.post('/selecoes', SelecaoController.store)
-app.get('/selecoes', SelecaoController.index)
-app.get('/selecoes/:id', SelecaoController.show)
-app.put('/selecoes/:id', SelecaoController.update)
-app.delete('/selecoes/:id', SelecaoController.delete)
+app.use(router)
 
 export default app

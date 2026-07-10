@@ -1,26 +1,30 @@
-import conexao from '../database/conexao.js'
+import {consulta} from '../database/conexao.js'
 
 class SelecaoRepository{
-    create(){}
+    create(selecao){
+        const sql = "Insert into selecoes set ?;"
+        return consulta(sql, selecao, 'Não foi possível cadastrar')
+    }
 
     findall(){
         const sql = "Select * from selecoes;"
-        return new Promise((resolve, reject) => {
-            conexao.query(sql, (erro, resultado) => {
-            if(erro) return reject('Não foi possível localizar!')
-            
-            const row = JSON.parse(JSON.stringify(resultado))    
-            return resolve(row)            
-        })
-    })
+        return consulta(sql, 'Não foi localizado cadastro')
     }
 
-    findById(){}
+    findById(id){
+        const sql = "Select * from selecoes where id=?;"
+        return consulta(sql, id, 'Não foi localizado cadastro')
+    }
 
-    update(){}
+    update(selecao, id){
+        const sql = "Update selecoes set ? where id=?;"
+        return consulta(sql, [selecao, id], 'Não foi possível atualizar') 
+    }
 
-    delete(){}
-
+    delete(id){
+        const sql = "Delete from selecoes where id=?;"
+        return consulta(sql, id, 'Não foi possível apagar') 
+    }
 }
 
 export default new SelecaoRepository()
