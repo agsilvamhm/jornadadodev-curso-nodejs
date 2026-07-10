@@ -12,3 +12,4 @@ Para criar um script é acessado o arquivo package.json, na chave script. E para
 
 Para instalar o Mysql no projeto
 npm install mysql
+

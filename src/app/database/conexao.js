@@ -8,4 +8,6 @@ const conexao = mysql.createConnection({
     database: 'db_copa'
 })
 
+conexao.connect()
+
 export default conexao
